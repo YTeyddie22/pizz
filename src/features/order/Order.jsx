@@ -1,10 +1,15 @@
 // Test ID: IIDSAT
 
+import { useLoaderData } from "react-router-dom";
+import { getOrder } from "../../services/apiResturant";
 import {
     calcMinutesLeft,
     formatCurrency,
     formatDate,
 } from "../../utils/helper";
+
+/*
+DUMMY DATA
 
 const order = {
     id: "ABCDEF",
@@ -41,7 +46,12 @@ const order = {
     priorityPrice: 19,
 };
 
+*/
+
 function Order() {
+    //Fetch the data from the API using useLoaderData hook from react router
+
+    const order = useLoaderData();
     // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
     const {
         id,
@@ -60,8 +70,8 @@ function Order() {
                 <h2>Status</h2>
 
                 <div>
-                    {priority && <span>Priority</span>}
-                    <span>{status} order</span>
+                    {priority && <span>Priority</span>}:
+                    <span> {status} order</span>
                 </div>
             </div>
 
@@ -88,6 +98,12 @@ function Order() {
             </div>
         </div>
     );
+}
+
+//Load the order from resturant API
+export async function loader({ params }) {
+    const order = await getOrder(params.orderId);
+    return order;
 }
 
 export default Order;
