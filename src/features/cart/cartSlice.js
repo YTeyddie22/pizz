@@ -58,4 +58,8 @@ export const getTotalCartQuantity = (state) =>
 export const getTotalCartPrice = (state) =>
     state.cart.cart.reduce((item, cur) => item + cur.totalPrice, 0);
 
+//Check if element id exists or return 0
+export const getCurrentQuantityById = (id) => (state) =>
+    state.cart.cart.find((item) => item.pizzaId === id)?.quantity ?? 0;
+
 //Check out the "reselect" library to optimize Redux
