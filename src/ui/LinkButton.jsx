@@ -1,19 +1,22 @@
-import CreateUser from "../features/user/CreateUser";
+import { Link, useNavigate } from "react-router-dom";
 
-function Home() {
+function LinkButton({ children, to }) {
+    const navigate = useNavigate();
+    const className =
+        "text-sm text-blue-500 hover:text-blue-600 hover:underline";
+
+    if (to === "-1")
+        return (
+            <button className={className} onClick={() => navigate(-1)}>
+                {children}
+            </button>
+        );
+
     return (
-        <div className="my-10 px-4 text-center sm:my-16">
-            <h1 className="mb-8  text-xl font-semibold md:text-3xl">
-                The best pizza.
-                <br />
-                <span className="text-yellow-500">
-                    Straight out of the oven, straight to you.
-                </span>
-            </h1>
-
-            <CreateUser />
-        </div>
+        <Link to={to} className={className}>
+            {children}
+        </Link>
     );
 }
 
-export default Home;
+export default LinkButton;
